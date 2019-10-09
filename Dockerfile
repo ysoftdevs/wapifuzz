@@ -1,6 +1,8 @@
 # We need .NET Core image for running parser
 FROM mcr.microsoft.com/dotnet/core/sdk:2.1
 
+ENV container=true
+
 # Expose port for process monitor
 EXPOSE 26002/tcp
 EXPOSE 26002/udp
@@ -15,11 +17,11 @@ COPY fuzzer /usr/local/fuzzer/fuzzer
 COPY parser /usr/local/fuzzer/parser
 COPY reporter /usr/local/fuzzer/reporter
 
-# And finally, copy the run script
-COPY run.sh /usr/local/bin/
-
 # Set working directory
 WORKDIR /usr/local/fuzzer/
 
+COPY run.sh /usr/local/fuzzer/run.sh
+RUN chmod +x /usr/local/fuzzer/run.sh
+
 # Set run script as an entry point of the container
-ENTRYPOINT ["run.sh"]
+ENTRYPOINT ["/usr/local/fuzzer/run.sh"]
