@@ -1,0 +1,2 @@
+# Source: FuzzDB (https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/control-chars/imessage.txt)
+Powerلُلُصّبُلُلصّبُررً ॣ ॣh ॣ ॣ冗

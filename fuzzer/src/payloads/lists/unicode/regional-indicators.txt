@@ -1,0 +1,4 @@
+# Source: https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/unicode (origin: https://github.com/minimaxir/big-list-of-naughty-strings)
+🇺🇸🇷🇺🇸 🇦🇫🇦🇲🇸                                                                                          
+🇺🇸🇷🇺🇸🇦🇫🇦🇲
+🇺🇸🇷🇺🇸🇦

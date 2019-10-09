@@ -1,0 +1,26 @@
+{
+    "fixed_url_attributes": {
+        "attributeName": "attributeValue"
+    },
+    "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "*token": ""
+    },
+    "reporting_interval": 60,
+    "http_fuzzing": true,
+    "skipping_endpoints_keywords": ["logout", "auth"],
+    "polling_interval": 0.005,
+    "response_timeout": 2,
+    "startup_command": ["python", "C:\\server\\httpd.py"],
+    "target": {
+        "hostname": "target_hostname",
+        "port": 3000,
+        "ssl": false
+    },
+    "payloads_to_json_primitives_mapping": {
+        "boolean": ["numeric", "os-command-injection", "path-traversal", "special-chars-generic", "sql-injection", "unicode", "xml"],
+        "number": ["numeric"],
+        "string": ["numeric", "os-command-injection", "path-traversal", "special-chars-generic", "sql-injection", "unicode", "xml"]
+    }
+}

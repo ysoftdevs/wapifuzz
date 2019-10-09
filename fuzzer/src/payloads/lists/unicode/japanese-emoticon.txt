@@ -1,0 +1,12 @@
+# Source: https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/unicode (origin: https://github.com/minimaxir/big-list-of-naughty-strings)
+ヽ༼ຈل͜ຈ༽ﾉ ヽ༼ຈل͜ຈ༽ﾉ 
+(｡◕ ∀ ◕｡)
+｀ｨ(´∀｀∩
+__ﾛ(,_,*)
+・(￣∀￣)・:*:
+ﾟ･✿ヾ╲(｡◕‿◕｡)╱✿･ﾟ
+,。・:*:・゜’( ☻ ω ☻ )。・:*:・゜’
+(╯°□°）╯︵ ┻━┻)  
+(ﾉಥ益ಥ）ﾉ﻿ ┻━┻
+┬─┬ノ( º _ ºノ)
+( ͡° ͜ʖ ͡°)

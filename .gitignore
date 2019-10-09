@@ -1,0 +1,21 @@
+# Folders for IDE caching and settings
+.idea/
+.vscode/
+
+# Default folder for boofuzz db logging
+boofuzz-results/
+
+# Python enviromental and other files
+env/
+__pycache__
+*.pyc
+
+# Fuzzer outputs
+*.junit.xml
+*.log
+*.html
+
+# Files for internal debug
+Makefile
+config.json
+payloads.txt

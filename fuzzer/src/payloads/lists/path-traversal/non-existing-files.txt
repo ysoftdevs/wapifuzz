@@ -1,0 +1,12 @@
+# Generic relative paths
+../../../../../../../../../../../../../../../../../unknown/unknown.log
+..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\unknown/unknown.log
+
+../../../../../../../../../../../../../../../../../unknown
+..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\unknown
+
+# Windows absolute paths
+c:\unknown\unknown
+
+# UNIX absolute paths
+/unknown/unknown
