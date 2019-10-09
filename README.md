@@ -65,7 +65,7 @@ Execute `run.sh config_file_path openapi_doc_file_path [custom_payloads_file_pat
 ### Docker
 You just need to run the container with following arguments:
 
-`docker run -p {host_port}:{container_port} -v $(pwd):/usr/local/fuzzer/mnt/ starek4/wfuzz:latest mnt/config.json mnt/sqta.yaml [mnt/custom_payloads.txt]`
+`docker run -p {host_port}:{container_port} -v $(pwd):/usr/local/fuzzer/mnt/ starek4/wfuzz:latest config.json sqta.yaml [custom_payloads.txt]`
 
 where files `config.json`, `sqta.yaml` and `custom_payloads` needs to be stored in the working directory.
 With parameter `-p` you also need to bind port number, which is used for communication with your web API, to the container.

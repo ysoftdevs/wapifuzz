@@ -9,24 +9,10 @@ then
     exit 1
 fi
 
-# Check if config file and documentation file are valid files
+# Load script arguments
 WFUZZ_CONFIG=$1
 OPENAPI_DOCUMENTATION=$2
 CUSTOM_PAYLOADS_FILE=$3
-
-if [ ! -f "$WFUZZ_CONFIG" ]
-then
-    echo "Configuration file path is not valid!" >&2
-    echo $USAGE >&2
-    exit 1
-fi
-
-if [ ! -f "$OPENAPI_DOCUMENTATION" ]
-then
-    echo "OpenApi documentation file path is not valid!" >&2
-    echo $USAGE >&2
-    exit 1
-fi
 
 # Define binary binaries paths
 PIP3_BIN=pip3
@@ -47,12 +33,31 @@ FUZZER_LOG=fuzzing.log
 XUNIT2HTML_XSL=./reporter/xunit_to_html.xsl
 SAXON9HE=./reporter/saxon9he.jar
 
-# If there is mounted Docker directory, write output files into it
-if [ -d "mnt/" ]; then
+# If we are in Docker container, write output files into mounted folder and append this folder before input files paths
+if [ "$container" = "true" ]; then
     echo "Founded mounted Docker directory, you can find WFuzz artifacts in your working directory."
+    WFUZZ_CONFIG="./mnt/$WFUZZ_CONFIG"
+    OPENAPI_DOCUMENTATION="./mnt/$OPENAPI_DOCUMENTATION"
+    CUSTOM_PAYLOADS_FILE="./mnt/$CUSTOM_PAYLOADS_FILE"
+
     FUZZER_LOG="./mnt/$FUZZER_LOG"
     JUNIT_TEST_REPORT="./mnt/$JUNIT_TEST_REPORT_FILENAME"
     HTML_TEST_REPORT="./mnt/$HTML_TEST_REPORT_FILENAME"
+fi
+
+# Check if config file and documentation file are valid files
+if [ ! -f "$WFUZZ_CONFIG" ]
+then
+    echo "Configuration file path is not valid!" >&2
+    echo $USAGE >&2
+    exit 1
+fi
+
+if [ ! -f "$OPENAPI_DOCUMENTATION" ]
+then
+    echo "OpenApi documentation file path is not valid!" >&2
+    echo $USAGE >&2
+    exit 1
 fi
 
 # Define docker images tags
