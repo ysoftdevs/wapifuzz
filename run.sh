@@ -38,7 +38,10 @@ if [ "$container" = "true" ]; then
     echo "Founded mounted Docker directory, you can find WFuzz artifacts in your working directory."
     WFUZZ_CONFIG="./mnt/$WFUZZ_CONFIG"
     OPENAPI_DOCUMENTATION="./mnt/$OPENAPI_DOCUMENTATION"
-    CUSTOM_PAYLOADS_FILE="./mnt/$CUSTOM_PAYLOADS_FILE"
+
+    if [ ! -z "$CUSTOM_PAYLOADS_FILE" ]; then
+        CUSTOM_PAYLOADS_FILE="./mnt/$CUSTOM_PAYLOADS_FILE"
+    fi
 
     FUZZER_LOG="./mnt/$FUZZER_LOG"
     JUNIT_TEST_REPORT="./mnt/$JUNIT_TEST_REPORT_FILENAME"
