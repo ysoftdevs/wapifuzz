@@ -21,6 +21,7 @@ COPY reporter /usr/local/fuzzer/reporter
 WORKDIR /usr/local/fuzzer/
 
 COPY run.sh /usr/local/fuzzer/run.sh
+RUN chmod +x /usr/local/fuzzer/run.sh
 
 # Set run script as an entry point of the container
 ENTRYPOINT ["/usr/local/fuzzer/run.sh"]
