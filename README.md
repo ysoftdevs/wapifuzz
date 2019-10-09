@@ -63,13 +63,9 @@ Execute `run.ps1 -c config_file_path -openapi openapi_doc_file_path [-payloads c
 Execute `run.sh config_file_path openapi_doc_file_path [custom_payloads_file_path]` command from Bash.
 
 ### Docker
-Firstly, you need to build your image, so go into root of WFuzz repository and simply execute:
+You just need to run the container with following arguments:
 
-`docker build . -t wfuzz:v1`
-
-Then, you need to run container. Since now, you do not have to be in fuzzer directory, you can run container from any working directory you want. You can do it like this:
-
-`docker run -p {host_port}:{container_port} -v $(pwd):/usr/local/fuzzer/mnt/ wfuzz:v1 mnt/config.json mnt/sqta.yaml [mnt/custom_payloads.txt]`
+`docker run -p {host_port}:{container_port} -v $(pwd):/usr/local/fuzzer/mnt/ starek4/wfuzz:latest mnt/config.json mnt/sqta.yaml [mnt/custom_payloads.txt]`
 
 where files `config.json`, `sqta.yaml` and `custom_payloads` needs to be stored in the working directory.
 With parameter `-p` you also need to bind port number, which is used for communication with your web API, to the container.
