@@ -1,15 +1,15 @@
-# WFuzz - fully autonomous web APIs fuzzer
+# WapiFuzz - fully autonomous web APIs fuzzer
 Fuzzing is popular testing technique for various error types detection. There are many fuzzing engines and fuzzers, which can help you with fuzzing itself. But there is currently no tool which can fully automate fuzzing just by providing API specification.
 
-And that is why WFuzz was created. We believe that web API documentation is all that fuzzer needs to do his job. WFuzz can be easily deployed to almost any continuous integration (CI) service. It provides rich test reports to JUnit XML format.
+And that is why WapiFuzz was created. We believe that web API documentation is all that fuzzer needs to do his job. WapiFuzz can be easily deployed to almost any continuous integration (CI) service. It provides rich test reports to JUnit XML format.
 
-## What does the WFuzz test?
-Current version of WFuzz tests following parts of HTTP request to your API:
+## What does the WapiFuzz test?
+Current version of WapiFuzz tests following parts of HTTP request to your API:
 - HTTP header
 - URI attributes of all documented requests
 - JSON body primitive types of all documented HTTP body examples
 
-## What types of vulnerabilities does WFuzz testing?
+## What types of vulnerabilities does WapiFuzz testing?
 - Numeric strings (overflows, reserved words, ...)
 - Command injection
 - SQL injection
@@ -26,7 +26,7 @@ You can automatically test your web API if it meets following criteria:
 If you have your API documented in other documentation formats, you can try use some convertor.
 There are plenty convertors online. Some of theme are listed here: https://openapi.tools/.
 
-Consuming JSON data is not mandatory requirement. If your API does not consumes JSON, WFuzz will still tests HTTP header and URI attributes processing of your server.
+Consuming JSON data is not mandatory requirement. If your API does not consumes JSON, WapiFuzz will still tests HTTP header and URI attributes processing of your server.
 
 ## Dependencies
 - Python 3
@@ -55,7 +55,7 @@ In config file you are able to specify following options:
   - **port** -> victim port
   - **ssl** -> boolean value, set to `true` if you want use SSL tcp connection, otherwise `false`
 
-Great, WFuzz is now ready for fuzzing! Run it by following commands.
+Great, WapiFuzz is now ready for fuzzing! Run it by following commands.
 ### Windows
 Execute `run.ps1 -c config_file_path -openapi openapi_doc_file_path [-payloads custom_payloads_file_path]` script in PowerShell.
 
@@ -65,7 +65,7 @@ Execute `run.sh config_file_path openapi_doc_file_path [custom_payloads_file_pat
 ### Docker
 You just need to run the container with following arguments:
 
-`docker run -p {host_port}:{container_port} -v $(pwd):/usr/local/fuzzer/mnt/ starek4/wfuzz:latest config.json sqta.yaml [custom_payloads.txt]`
+`docker run -p {host_port}:{container_port} -v $(pwd):/usr/local/fuzzer/mnt/ starek4/wapifuzz:latest config.json sqta.yaml [custom_payloads.txt]`
 
 where files `config.json`, `sqta.yaml` and `custom_payloads` needs to be stored in the working directory.
 With parameter `-p` you also need to bind port number, which is used for communication with your web API, to the container.
@@ -76,8 +76,8 @@ As you can see in run script parameters, you may even specify your own payloads!
 
 
 ## Where I can find test reports?
-After WFuzz finish, three main report files are generated. If you are using docker image just the way that is described above, you simply find these three files in your working directory.
-If you are running WFuzz by run scripts, you can find these files in the following paths:
+After WapiFuzz finish, three main report files are generated. If you are using docker image just the way that is described above, you simply find these three files in your working directory.
+If you are running WapiFuzz by run scripts, you can find these files in the following paths:
 
 - JUnit File: `./reporter/results.junit.xml`
 - HTML report: `./reporter/reports.html`
@@ -87,8 +87,8 @@ If you are running WFuzz by run scripts, you can find these files in the followi
 The first is the JUnit file (`./reporter/results.junit.xml`), which contains full test report and contains logs for failed tests. Almost every CI system provides a way how to present JUnit test reports in some human friendly way.
 
 ### HTML report
-WFuzz also generates nicely formatted HTML test report, stored at `./reporter/reports.html`.
+WapiFuzz also generates nicely formatted HTML test report, stored at `./reporter/reports.html`.
 
 ### Additional text logs
-WFuzz informs you about overall progress at standard output. If you want complete tests logs even
+WapiFuzz informs you about overall progress at standard output. If you want complete tests logs even
 for successfully finished test cases you can find it in log file (`./fuzzing.log`).

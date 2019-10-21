@@ -12,7 +12,7 @@ RUN apt update && apt install --yes build-essential checkinstall libreadline-gpl
 ADD https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz /usr/src/
 RUN cd /usr/src ; tar xzf Python-3.7.3.tgz ; cd Python-3.7.3 ; ./configure --enable-optimizations ; make altinstall ; ln -s /usr/local/bin/python3.7 /usr/local/bin/python3 ; ln -s /usr/local/bin/pip3.7 /usr/local/bin/pip3
 
-# Copy wfuzz components into docker
+# Copy wapifuzz components into docker
 COPY fuzzer /usr/local/fuzzer/fuzzer
 COPY parser /usr/local/fuzzer/parser
 COPY reporter /usr/local/fuzzer/reporter

@@ -10,7 +10,7 @@ then
 fi
 
 # Load script arguments
-WFUZZ_CONFIG=$1
+WAPIFUZZ_CONFIG=$1
 OPENAPI_DOCUMENTATION=$2
 CUSTOM_PAYLOADS_FILE=$3
 
@@ -35,8 +35,8 @@ SAXON9HE=./reporter/saxon9he.jar
 
 # If we are in Docker container, write output files into mounted folder and append this folder before input files paths
 if [ "$container" = "true" ]; then
-    echo "Founded mounted Docker directory, you can find WFuzz artifacts in your working directory."
-    WFUZZ_CONFIG="./mnt/$WFUZZ_CONFIG"
+    echo "Founded mounted Docker directory, you can find WapiFuzz artifacts in your working directory."
+    WAPIFUZZ_CONFIG="./mnt/$WAPIFUZZ_CONFIG"
     OPENAPI_DOCUMENTATION="./mnt/$OPENAPI_DOCUMENTATION"
 
     if [ ! -z "$CUSTOM_PAYLOADS_FILE" ]; then
@@ -49,7 +49,7 @@ if [ "$container" = "true" ]; then
 fi
 
 # Check if config file and documentation file are valid files
-if [ ! -f "$WFUZZ_CONFIG" ]
+if [ ! -f "$WAPIFUZZ_CONFIG" ]
 then
     echo "Configuration file path is not valid!" >&2
     echo $USAGE >&2
@@ -64,7 +64,7 @@ then
 fi
 
 # Define docker images tags
-REPORTER_IMAGE_TAG=wfuzz:reporter
+REPORTER_IMAGE_TAG=wapifuzz:reporter
 
 # Pilenine execution
 echo "Started parsing"
@@ -77,7 +77,7 @@ ${PYTHON3_BIN} -m virtualenv env
 echo "Started fuzzing"
 . ./env/bin/activate ; \
 pip install --upgrade pip ; pip install git+https://github.com/jtpereyda/boofuzz.git ; pip install junit-xml ; \
-python fuzzer/src/wfuzz.py ${WFUZZ_CONFIG} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${CUSTOM_PAYLOADS_FILE} > ${FUZZER_LOG} || { echo 'Fuzzing failed. HTML report will not be produced.' ; exit 1; } ; deactivate
+python fuzzer/src/wapifuzz.py ${WAPIFUZZ_CONFIG} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${CUSTOM_PAYLOADS_FILE} > ${FUZZER_LOG} || { echo 'Fuzzing failed. HTML report will not be produced.' ; exit 1; } ; deactivate
 echo "Fuzzing finished"
 
 echo "Starting generating HTML test report"
