@@ -24,7 +24,7 @@ def generate_http_fuzzed_blocks() -> str:
     s_static("Content-Length: 0" + "\r\n")
 
     s_static("User-Agent: ")
-    s_http_string("WFuzz", name="User-agent")
+    s_http_string("WapiFuzz", name="User-agent")
 
     s_delim("\r\n\r\n", name="HTTP headers and body delimiter")
 

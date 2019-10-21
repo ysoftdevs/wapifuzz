@@ -39,7 +39,7 @@ $XUNIT2HTML_XSL="./reporter/xunit_to_html.xsl"
 $SAXON9HE="./reporter/saxon9he.jar"
 
 # Define docker images tags
-$REPORTER_IMAGE_TAG="wfuzz:reporter"
+$REPORTER_IMAGE_TAG="wapifuzz:reporter"
 
 # Setting encofing for Python
 $env:PYTHONIOENCODING = "UTF-8"
@@ -68,7 +68,7 @@ pip install git+https://github.com/jtpereyda/boofuzz.git
 pip install junit-xml
 
 Write-Host "Starting fuzz testing"
-python ./fuzzer/src/wfuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads} > $FUZZER_LOG
+python ./fuzzer/src/wapifuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads} > $FUZZER_LOG
 if(-Not ($?))
 {
     Write-Host "Fuzzing failed. HTML report will not be produced."

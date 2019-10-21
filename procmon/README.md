@@ -23,8 +23,8 @@ Example command:
 `python process_monitor_windows.py -p TestedApplication.exe`
 
 
-## How to tell WFuzz that we want to monitor process?
-If you want to use process monitor, just add starting command for your tested service / process into WFuzz configuration file. Example configuration key should look like this:
+## How to tell WapiFuzz that we want to monitor process?
+If you want to use process monitor, just add starting command for your tested service / process into WapiFuzz configuration file. Example configuration key should look like this:
 `"startup_command": ["python", "C:\\server\\httpd.py"]`
 
-WFuzz then automatically connect with running process monitor script on tested system and will use its features.
+WapiFuzz then automatically connect with running process monitor script on tested system and will use its features.
