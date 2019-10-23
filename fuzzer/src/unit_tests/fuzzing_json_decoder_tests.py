@@ -3,6 +3,7 @@ import json
 from boofuzz import *
 from fuzzing_json_decoder import FuzzingJsonDecoder
 from fuzz_payloads import FuzzPayloads
+from configuration_manager import ConfigurationManager
 
 
 class FuzzingJsonDecoderTests(unittest.TestCase):
@@ -13,6 +14,9 @@ class FuzzingJsonDecoderTests(unittest.TestCase):
         # Generate at least few payloads for at least minimum number of mutations
         FuzzPayloads.add_payload_to_list("payload 1", FuzzPayloads.CUSTOM_PAYLOADS_KEY)
         FuzzPayloads.add_payload_to_list("payload 2", FuzzPayloads.CUSTOM_PAYLOADS_KEY)
+
+        # Generate fake configuration
+        ConfigurationManager.config = []
 
     def __json_equality_assertion(self, original_json, generated_json):
         self.assertDictEqual(json.loads(original_json), json.loads(generated_json))

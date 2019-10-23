@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/ysoftdevs/wapifuzz.svg?branch=master)](https://travis-ci.com/ysoftdevs/wapifuzz)
+
 # WapiFuzz - fully autonomous web APIs fuzzer
 Fuzzing is popular testing technique for various error types detection. There are many fuzzing engines and fuzzers, which can help you with fuzzing itself. But there is currently no tool which can fully automate fuzzing just by providing API specification.
 

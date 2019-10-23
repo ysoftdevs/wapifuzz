@@ -34,7 +34,7 @@ def main():
         with open(endpoints_description, 'r') as endpoints_description_file_pointer:
             endpoints = json.loads(endpoints_description_file_pointer.read())
 
-        fuzzer = Fuzzer(endpoints, [text_logger, junit_logger], protocol)
+        fuzzer = Fuzzer(endpoints, text_logger, junit_logger, protocol)
         fuzzer.fuzz()
 
 

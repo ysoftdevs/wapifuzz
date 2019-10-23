@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using Microsoft.OpenApi.Any;
 using NUnit.Framework;
 
@@ -6,6 +8,12 @@ namespace Parser.Tests
 {
     public class OpenApiAnyConvertorTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        }
+
         [Test]
         public void ConvertStringPrimitiveShouldReturnCorrectValue()
         {
@@ -51,7 +59,7 @@ namespace Parser.Tests
         public void ConvertDateTimePrimitiveShouldReturnCorrectValue()
         {
             var primitiveValue = OpenApiAnyConvertor.GetPrimitiveValue(new OpenApiDateTime(DateTime.UnixEpoch));
-            Assert.AreEqual("1/1/1970 12:00:00 AM +00:00", primitiveValue);
+            Assert.AreEqual("01/01/1970 00:00:00 +00:00", primitiveValue);
         }
 
         [Test]

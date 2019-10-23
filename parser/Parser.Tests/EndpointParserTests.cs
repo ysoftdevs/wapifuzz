@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using Microsoft.OpenApi.Models;
 using NUnit.Framework;
 using Models;
@@ -7,6 +9,12 @@ namespace Parser.Tests
 {
     public class EndpointParserTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        }
+
         readonly OpenApiDocument _document = new OpenApiDocument {Paths = new OpenApiPaths()};
         private void AddTwoTestingPaths()
         {

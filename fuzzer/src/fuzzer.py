@@ -9,9 +9,10 @@ from blocks_generator import generate_http_fuzzed_blocks, generate_url_attribute
 
 
 class Fuzzer:
-    def __init__(self, endpoints, loggers: List, protocol: str):
+    def __init__(self, endpoints, text_logger, junit_logger, protocol: str):
         self._endpoints = endpoints
-        self._loggers = loggers
+        self._text_logger = text_logger
+        self._junit_logger = junit_logger
         self._protocol = protocol
         self._session = None
 
@@ -39,7 +40,7 @@ class Fuzzer:
 
         self._session = Session(
             target=target,
-            fuzz_loggers=self._loggers,
+            fuzz_loggers=[self._text_logger, self._junit_logger],
             post_test_case_callbacks=[PostTestCaseCallback.post_test_callback],
             restart_sleep_time=0,
             keep_web_open=False,
@@ -67,5 +68,5 @@ class Fuzzer:
             self._endpoints[:] = [endpoint for endpoint in self._endpoints if keyword not in endpoint.get('Uri')]
 
     def fuzz(self):
-        report_progress(self._session)
+        report_progress(self._session, self._junit_logger)
         self._session.fuzz()

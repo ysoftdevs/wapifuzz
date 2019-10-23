@@ -5,27 +5,34 @@ import datetime
 from configuration_manager import ConfigurationManager
 
 DID_FUZZING_STARTED_CHECKS_TIME_INTERVAL_IN_SECONDS = 5
+HANGED_TIMEOUT = 120
 
 
-def report_progress(session):
+def close_testing_and_kill_fuzzer(junit_logger, session):
+    if is_fuzzing_hanged(session):
+        junit_logger.close_test()
+        os._exit(1)
+
+
+def report_progress(session, junit_logger):
     if did_fuzzing_already_started(session) > 0:
 
         if is_fuzzing_hanged(session):
             message = create_hanged_message(session)
             print(message, file=sys.stderr)
-            os._exit(1)
+            threading.Timer(HANGED_TIMEOUT, close_testing_and_kill_fuzzer, [junit_logger, session]).start()
 
         if is_fuzzing_still_in_progress(session):
-            plan_another_report(session, ConfigurationManager.get_reporting_interval())
+            plan_another_report(session, junit_logger, ConfigurationManager.get_reporting_interval())
 
         message = create_report_message(session)
         print(message, file=sys.stderr)
     else:
-        plan_another_report(session, DID_FUZZING_STARTED_CHECKS_TIME_INTERVAL_IN_SECONDS)
+        plan_another_report(session, junit_logger, DID_FUZZING_STARTED_CHECKS_TIME_INTERVAL_IN_SECONDS)
 
 
-def plan_another_report(session, reporting_interval):
-    threading.Timer(reporting_interval, report_progress, [session]).start()
+def plan_another_report(session, junit_logger, reporting_interval):
+    threading.Timer(reporting_interval, report_progress, [session, junit_logger]).start()
 
 
 def did_fuzzing_already_started(session):
