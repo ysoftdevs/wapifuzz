@@ -1,4 +1,5 @@
 import time
+import threading
 import json
 from http.client import HTTPResponse
 from boofuzz import exception
@@ -7,6 +8,12 @@ from fake_socket import get_response_object
 
 
 class PostTestCaseCallback(object):
+    timeout_flag: bool = False
+
+    @staticmethod
+    def set_timeout():
+        PostTestCaseCallback.timeout_flag = True
+
     @staticmethod
     def post_test_callback(target, fuzz_data_logger, session, sock, *args, **kwargs):
         fuzz_data_logger.log_info("Mutation: " + session.fuzz_node.mutant._rendered.decode('utf-8', errors='ignore'))
@@ -15,10 +22,15 @@ class PostTestCaseCallback(object):
         response_timeout = ConfigurationManager.config["response_timeout"]
         polling_interval = ConfigurationManager.config["polling_interval"]
 
+        timer = threading.Timer(response_timeout, PostTestCaseCallback.set_timeout)
+
         response_string = None
-        for _ in range(0, int(response_timeout / polling_interval)):
+        PostTestCaseCallback.timeout_flag = False
+        timer.start()
+        while not PostTestCaseCallback.timeout_flag:
             try:
                 response_string = target.recv()
+                timer.cancel()
                 break
             except exception.BoofuzzTargetConnectionReset:
                 time.sleep(polling_interval)
