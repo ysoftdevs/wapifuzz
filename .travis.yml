@@ -1,0 +1,21 @@
+dist: xenial
+language: csharp
+mono: none
+dotnet: 2.2.402
+script:
+  - sudo apt update
+  - sudo apt install --yes libssl-dev
+  - sudo apt install --yes build-essential checkinstall
+  - sudo apt install --yes libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
+  - sudo apt install --yes dos2unix
+  - cd /usr/src && sudo wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz && sudo tar xzf Python-3.7.3.tgz && cd Python-3.7.3 && sudo ./configure --enable-optimizations && sudo make altinstall
+  - sudo ln -s /usr/local/bin/python3.7 /usr/local/bin/python3
+  - sudo ln -s /usr/local/bin/pip3.7 /usr/local/bin/pip3
+  - export PATH="/usr/local/bin:$PATH"
+  - sudo pip3 install --upgrade pip && sudo pip3 install git+https://github.com/jtpereyda/boofuzz.git && sudo pip3 install junit-xml && sudo pip3 install virtualenv
+  - find ~/build/ysoftdevs/wapifuzz/ -type f -exec dos2unix {} \;
+  - find ~/build/ysoftdevs/wapifuzz/ -type f -name "*.sh" -exec chmod u+x {} \;
+  - cd ~/build/ysoftdevs/wapifuzz/parser/ && dotnet restore && dotnet test
+  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/src/ && python3 -m unittest unit_tests.fuzzing_json_decoder_tests
+  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/src/ && python3 -m unittest unit_tests.json_schema_parser_tests
+  - cd ~/build/ysoftdevs/wapifuzz/tests/ && chmod +x run_tests.sh && travis_wait ./run_tests.sh

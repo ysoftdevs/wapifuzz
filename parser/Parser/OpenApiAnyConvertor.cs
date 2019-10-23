@@ -49,7 +49,7 @@ namespace Parser
                     return dateValue.Value.ToString(CultureInfo.InvariantCulture);
                 case PrimitiveType.DateTime:
                     OpenApiDateTime dateTimeValue = (OpenApiDateTime) primitive;
-                    return dateTimeValue.Value.ToString();
+                    return dateTimeValue.Value.ToString(CultureInfo.InvariantCulture);
                 case PrimitiveType.Password:
                     OpenApiPassword passwordValue = (OpenApiPassword) primitive;
                     return passwordValue.Value;
