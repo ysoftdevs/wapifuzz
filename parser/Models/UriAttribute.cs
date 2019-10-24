@@ -10,6 +10,7 @@ namespace Models
 
         public string Type { get; set; }
         public string Format { get; set; }
+        public string Location { get; set; }
 
         public UriAttribute(string name, bool required)
         {
