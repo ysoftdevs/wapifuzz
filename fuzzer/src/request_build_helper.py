@@ -66,7 +66,7 @@ class RequestBuildHelper(object):
         for uri_parameter in uri_parameters:
             parameter_name = uri_parameter["Name"]
             if parameter_name not in already_used_parameters and uri_parameter["Location"] == "Query":
-                prefix = "?" if "?" not in s_render() else "&"
+                prefix = "?" if "?" not in s_render().decode('ascii', 'ignore') else "&"
                 name = "URI attribute, default value: " + uri + ", id: " + next(id_generator)
                 s_http_string(prefix + parameter_name + "=", fuzzable=False, encoding=EncodingTypes.ascii, name=name)
                 RequestBuildHelper._append_parameter(parameter_name, id_generator, uri_parameters, fuzzable)
