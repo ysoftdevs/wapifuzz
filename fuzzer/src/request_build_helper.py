@@ -8,7 +8,6 @@ from configuration_manager import ConfigurationManager
 
 
 class RequestBuildHelper(object):
-
     # Content-length and Host are mandatory
     @staticmethod
     def generate_headers(config):
@@ -36,12 +35,7 @@ class RequestBuildHelper(object):
         return headers is not None and header_name in headers
 
     @staticmethod
-    def generate_uri(uri, uri_parameters, fuzzable=False):
-        id_generator = _unique_uri_attribute_id()
-
-        already_used_parameters: List[str] = []
-
-        # 1] Generate URI as it is in payloads file
+    def _generate_base_uri_path(uri, uri_parameters, id_generator, fuzzable, already_used_parameters):
         while True:
             try:
                 # Find first not yet found parameter, if there is one
@@ -62,14 +56,23 @@ class RequestBuildHelper(object):
                     s_http_string(uri, fuzzable=False, encoding=EncodingTypes.ascii, name=name)
                 break
 
-        # 2] Append another URI attributes
+    @staticmethod
+    def _generate_additional_query_parameters(uri_parameters, already_used_parameters, id_generator, fuzzable):
         for uri_parameter in uri_parameters:
             parameter_name = uri_parameter["Name"]
             if parameter_name not in already_used_parameters and uri_parameter["Location"] == "Query":
                 prefix = "?" if "?" not in s_render().decode('ascii', 'ignore') else "&"
-                name = "URI attribute, default value: " + uri + ", id: " + next(id_generator)
+                name = "URI attribute, default value: " + parameter_name + ", id: " + next(id_generator)
                 s_http_string(prefix + parameter_name + "=", fuzzable=False, encoding=EncodingTypes.ascii, name=name)
                 RequestBuildHelper._append_parameter(parameter_name, id_generator, uri_parameters, fuzzable)
+
+    @staticmethod
+    def generate_uri(uri, uri_parameters, fuzzable=False):
+        id_generator = _unique_uri_attribute_id()
+        already_used_parameters: List[str] = []
+
+        RequestBuildHelper._generate_base_uri_path(uri, uri_parameters, id_generator, fuzzable, already_used_parameters)
+        RequestBuildHelper._generate_additional_query_parameters(uri_parameters, already_used_parameters, id_generator, fuzzable)
 
     @staticmethod
     def _append_parameter(parameter_name, id_generator, uri_parameters, fuzzable):
