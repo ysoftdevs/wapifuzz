@@ -1,4 +1,5 @@
 import sys
+import ssl
 from typing import List
 from boofuzz import Session, Target, SocketConnection, s_get, pedrpc
 from progress_reporter import report_progress
@@ -30,7 +31,13 @@ class Fuzzer:
         target_config = ConfigurationManager.get_target()
         startup_command = ConfigurationManager.get_startup_command()
 
-        remote_connection = SocketConnection(target_config["hostname"], target_config["port"], proto=self._protocol)
+        ssl_context = None
+        if self._protocol == 'ssl':
+            ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+
+        remote_connection = SocketConnection(target_config["hostname"], target_config["port"], proto=self._protocol, sslcontext=ssl_context)
         if startup_command:
             process_monitor = pedrpc.Client(target_config["hostname"], 26002)
             process_monitor_options = {"start_commands": [startup_command]}
