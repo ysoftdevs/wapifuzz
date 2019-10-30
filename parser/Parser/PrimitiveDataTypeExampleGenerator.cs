@@ -18,6 +18,8 @@ namespace Parser
                     return "42.0";
                 case "boolean":
                     return "True";
+                case "array":
+                    return "attr1,attr2";
                 case "string":
                 {
                     const string example = "example";

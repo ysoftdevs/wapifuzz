@@ -14,6 +14,7 @@ namespace Parser.Tests
         [TestCase("string", "date", "2002-10-02")]
         [TestCase("string", "date-time", "2002-10-02T10:00:00-05:00")]
         [TestCase("string", "password", "example")]
+        [TestCase("array", null, "attr1,attr2")]
         public void ValidCombinationsShouldReturnValidValue(string type, string format, string expected)
         {
             string example = PrimitiveDataTypeExampleGenerator.GenerateExampleValueByType(type, format);
