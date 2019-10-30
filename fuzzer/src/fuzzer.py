@@ -1,5 +1,6 @@
 import sys
 import ssl
+import os
 from typing import List
 from boofuzz import Session, Target, SocketConnection, s_get, pedrpc
 from progress_reporter import report_progress
@@ -37,7 +38,20 @@ class Fuzzer:
             ssl_context.check_hostname = False
             ssl_context.verify_mode = ssl.CERT_NONE
 
-        remote_connection = SocketConnection(target_config["hostname"], target_config["port"], proto=self._protocol, sslcontext=ssl_context)
+        # Workaround for issue with TLS with Boofuzz on Windows
+        # https://github.com/jtpereyda/boofuzz/pull/300#issuecomment-548108378
+        send_and_rcv_timeout = 5.0
+        if os.name == 'nt':
+            send_and_rcv_timeout = 5000.0
+
+        remote_connection = SocketConnection(
+            target_config["hostname"],
+            target_config["port"],
+            proto=self._protocol,
+            sslcontext=ssl_context,
+            send_timeout=send_and_rcv_timeout,
+            recv_timeout=send_and_rcv_timeout
+        )
         if startup_command:
             process_monitor = pedrpc.Client(target_config["hostname"], 26002)
             process_monitor_options = {"start_commands": [startup_command]}
