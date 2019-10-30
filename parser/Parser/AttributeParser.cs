@@ -21,7 +21,8 @@ namespace Parser
                                    ContentParser.GetSingleExample(parameter.Schema?.Example) ??
                                    PrimitiveDataTypeExampleGenerator.GenerateExampleValueByType(parameter.Schema.Type, parameter.Schema.Format),
                     Type = parameter.Schema.Type,
-                    Format = parameter.Schema.Format
+                    Format = parameter.Schema.Format,
+                    Location = parameter.In == ParameterLocation.Path ? "Path" : "Query"
                 };
                 return attribute;
             }

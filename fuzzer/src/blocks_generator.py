@@ -89,7 +89,7 @@ def _generate_content_body(is_body_json, json_decoder, body_string_example, fuzz
 
 def _generate_http_header(request, endpoint, fuzzable):
     s_static(request["Method"].upper() + " ")
-    RequestBuildHelper.generate_uri(endpoint["Uri"], request["UriAttributes"], ConfigurationManager.config, fuzzable)
+    RequestBuildHelper.generate_uri(endpoint["Uri"], request["UriAttributes"], fuzzable)
     s_static(" HTTP/1.1\r\n")
     RequestBuildHelper.generate_headers(ConfigurationManager.config)
     s_static("\r\n\r\n")

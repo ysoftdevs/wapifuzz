@@ -20,6 +20,34 @@ namespace Parser.Tests
         }
 
         [Test]
+        public void ParsingPathAttributeWithPathLocation()
+        {
+            OpenApiParameter parameter = new OpenApiParameter
+            {
+                Schema = new OpenApiSchema { Type = "string", Format = null },
+                In = ParameterLocation.Path
+            };
+
+            var parsedAttribute = AttributeParser.ParseAttribute(parameter);
+
+            Assert.AreEqual("Path", parsedAttribute.Location);
+        }
+
+        [Test]
+        public void ParsingPathAttributeWithQueryLocation()
+        {
+            OpenApiParameter parameter = new OpenApiParameter
+            {
+                Schema = new OpenApiSchema { Type = "string", Format = null },
+                In = ParameterLocation.Query
+            };
+
+            var parsedAttribute = AttributeParser.ParseAttribute(parameter);
+
+            Assert.AreEqual("Query", parsedAttribute.Location);
+        }
+
+        [Test]
         public void ParsingAttributeWithNoTypeOrFormatShouldReturnNull()
         {
             OpenApiParameter parameter = new OpenApiParameter {Schema = new OpenApiSchema {Type = null, Format = null}};

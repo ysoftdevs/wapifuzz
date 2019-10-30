@@ -1,12 +1,13 @@
 import json
-from boofuzz import s_static, s_size
+from typing import List
+from boofuzz import s_static, s_size, s_render
 from fuzz_payloads import s_http_string, s_http_number, s_http_boolean
 from encodings_helper import EncodingTypes
 from parameter import Parameter
+from configuration_manager import ConfigurationManager
 
 
 class RequestBuildHelper(object):
-
     # Content-length and Host are mandatory
     @staticmethod
     def generate_headers(config):
@@ -34,10 +35,7 @@ class RequestBuildHelper(object):
         return headers is not None and header_name in headers
 
     @staticmethod
-    def generate_uri(uri, uri_parameters, config, fuzzable=False):
-        fixed_attributes = config["fixed_url_attributes"] if "fixed_url_attributes" in config else None
-        id_generator = _unique_uri_attribute_id()
-
+    def _generate_base_uri_path(uri, uri_parameters, id_generator, fuzzable, already_used_parameters):
         while True:
             try:
                 # Find first not yet found parameter, if there is one
@@ -48,23 +46,48 @@ class RequestBuildHelper(object):
                 index = uri.index("}")
                 parameter_name = uri[0:index]
 
-                parameter: Parameter = RequestBuildHelper._get_parameter(parameter_name, fixed_attributes, uri_parameters)
-                name = "URI attribute, default value: " + parameter.value + ", id: " + next(id_generator)
-                is_part_fuzzable = fuzzable and not parameter.is_from_config
-
-                if parameter.data_type and (parameter.data_type == 'integer' or parameter.data_type == 'number'):
-                    s_http_number(parameter.value, fuzzable=is_part_fuzzable, encoding=EncodingTypes.urlencoded, name=name)
-                elif parameter.data_type and parameter.data_type == 'string':
-                    s_http_boolean(parameter.value, fuzzable=is_part_fuzzable, encoding=EncodingTypes.urlencoded, name=name)
-                else:
-                    s_http_string(parameter.value, fuzzable=is_part_fuzzable, encoding=EncodingTypes.urlencoded, name=name)
+                RequestBuildHelper._append_parameter(parameter_name, id_generator, uri_parameters, fuzzable)
 
                 uri = uri[index + 1:]
+                already_used_parameters.append(parameter_name)
             except ValueError:
                 if len(uri) > 0:
                     name = "URI attribute, default value: " + uri + ", id: " + next(id_generator)
                     s_http_string(uri, fuzzable=False, encoding=EncodingTypes.ascii, name=name)
                 break
+
+    @staticmethod
+    def _generate_additional_query_parameters(uri_parameters, already_used_parameters, id_generator, fuzzable):
+        for uri_parameter in uri_parameters:
+            parameter_name = uri_parameter["Name"]
+            if parameter_name not in already_used_parameters and uri_parameter["Location"] == "Query":
+                prefix = "?" if "?" not in s_render().decode('ascii', 'ignore') else "&"
+                name = "URI attribute, default value: " + parameter_name + ", id: " + next(id_generator)
+                s_http_string(prefix + parameter_name + "=", fuzzable=False, encoding=EncodingTypes.ascii, name=name)
+                RequestBuildHelper._append_parameter(parameter_name, id_generator, uri_parameters, fuzzable)
+
+    @staticmethod
+    def generate_uri(uri, uri_parameters, fuzzable=False):
+        id_generator = _unique_uri_attribute_id()
+        already_used_parameters: List[str] = []
+
+        RequestBuildHelper._generate_base_uri_path(uri, uri_parameters, id_generator, fuzzable, already_used_parameters)
+        RequestBuildHelper._generate_additional_query_parameters(uri_parameters, already_used_parameters, id_generator, fuzzable)
+
+    @staticmethod
+    def _append_parameter(parameter_name, id_generator, uri_parameters, fuzzable):
+        fixed_attributes = ConfigurationManager.config["fixed_url_attributes"] if "fixed_url_attributes" in ConfigurationManager.config else None
+
+        parameter: Parameter = RequestBuildHelper._get_parameter(parameter_name, fixed_attributes, uri_parameters)
+        name = "URI attribute, default value: " + parameter.value + ", id: " + next(id_generator)
+        is_part_fuzzable = fuzzable and not parameter.is_from_config
+
+        if parameter.data_type and (parameter.data_type == 'integer' or parameter.data_type == 'number'):
+            s_http_number(parameter.value, fuzzable=is_part_fuzzable, encoding=EncodingTypes.urlencoded, name=name)
+        elif parameter.data_type and parameter.data_type == 'string':
+            s_http_boolean(parameter.value, fuzzable=is_part_fuzzable, encoding=EncodingTypes.urlencoded, name=name)
+        else:
+            s_http_string(parameter.value, fuzzable=is_part_fuzzable, encoding=EncodingTypes.urlencoded, name=name)
 
     # Getting parameter value from these sources (ordered):
     # 1] Fixed attributes from config
