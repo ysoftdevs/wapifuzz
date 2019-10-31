@@ -64,7 +64,7 @@ class ConfigurationManager:
         http_fuzzing: bool = self.config["http_fuzzing"]
 
         if reporting_interval <= 0 or reporting_interval < receive_timeout:
-            print("Wrong reporting interval. Should be smaller than response_timeout.")
+            print("Wrong reporting interval. Should be smaller than receive_timeout.")
             sys.exit(-1)
 
         if "target" not in ConfigurationManager.config:
