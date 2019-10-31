@@ -39,6 +39,10 @@ class ConfigurationManager:
         return ConfigurationManager.config["payloads_to_json_primitives_mapping"] if "payloads_to_json_primitives_mapping" in ConfigurationManager.config else None
 
     @staticmethod
+    def get_receive_timeout():
+        return ConfigurationManager.config["receive_timeout"]
+
+    @staticmethod
     def get_reporting_interval():
         return ConfigurationManager.config["reporting_interval"]
 
@@ -56,16 +60,10 @@ class ConfigurationManager:
 
     def _config_validation(self):
         reporting_interval: Union[int, float] = self.config["reporting_interval"]
-        response_timeout: Union[int, float] = self.config["response_timeout"]
-        polling_interval: Union[int, float] = self.config["polling_interval"]
+        receive_timeout: Union[int, float] = self.config["receive_timeout"]
         http_fuzzing: bool = self.config["http_fuzzing"]
 
-        if response_timeout <= polling_interval or polling_interval <= 0:
-            print("Wrong timeout and polling interval. Timeout has to be greater than polling interval" +
-                  " and polling interval has to be greater than zero.")
-            sys.exit(-1)
-
-        if reporting_interval <= 0 or reporting_interval < response_timeout:
+        if reporting_interval <= 0 or reporting_interval < receive_timeout:
             print("Wrong reporting interval. Should be smaller than response_timeout.")
             sys.exit(-1)
 

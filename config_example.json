@@ -10,8 +10,7 @@
     "reporting_interval": 60,
     "http_fuzzing": true,
     "skipping_endpoints_keywords": ["logout", "auth"],
-    "polling_interval": 0.005,
-    "response_timeout": 2,
+    "receive_timeout": 2,
     "startup_command": ["python", "C:\\server\\httpd.py"],
     "target": {
         "hostname": "target_hostname",
