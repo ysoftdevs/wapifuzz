@@ -42,8 +42,7 @@ The only thing you need to do is create config file. You can find template in ro
 In config file you are able to specify following options:
 - **fixed_url_attributes** -> if you want to set some attributes to static values
 - **headers** -> headers which are sent by each request (useful for AUTH token insertion)
-- **polling_interval** -> interval between checks for response (in seconds)
-- **response_timeout** -> maximum amount of time waiting for response (in seconds)
+- **receive_timeout** -> maximum amount of time waiting for response (in seconds)
 - **reporting_interval** -> progress reporting interval (in seconds)
 - **http_fuzzing** -> boolean value for enabling / disabling fuzzing of HTTP protocol
 - **skipping_endpoints_keywords** [list of string keywords] -> endpoints containing any keyword in it from this list will be skipped (can be used for skipping auth/logout endpoints)

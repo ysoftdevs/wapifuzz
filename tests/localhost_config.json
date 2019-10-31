@@ -1,8 +1,7 @@
 {
     "fixed_url_attributes": {},
     "headers": {},
-    "polling_interval": 0.05,
-    "response_timeout": 1,
+    "receive_timeout": 1,
     "reporting_interval": 10,
     "skipping_endpoints_keywords": [],
     "http_fuzzing": false,
