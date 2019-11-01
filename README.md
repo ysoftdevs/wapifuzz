@@ -3,7 +3,7 @@
 # WapiFuzz - fully autonomous web APIs fuzzer
 Fuzzing is popular testing technique for various error types detection. There are many fuzzing engines and fuzzers, which can help you with fuzzing itself. But there is currently no tool which can fully automate fuzzing just by providing API specification.
 
-And that is why WapiFuzz was created. We believe that web API documentation is all that fuzzer needs to do his job. WapiFuzz can be easily deployed to almost any continuous integration (CI) service. It provides rich test reports to JUnit XML format.
+And that is why WapiFuzz was created. We believe that web API documentation is all that fuzzer needs to do his job. WapiFuzz can be easily deployed to almost any continuous integration (CI) service. It is based on popular [Boofuzz](https://github.com/jtpereyda/boofuzz) fuzzer and provides rich test reports to JUnit XML format.
 
 ## What does the WapiFuzz test?
 Current version of WapiFuzz tests following parts of HTTP request to your API:
