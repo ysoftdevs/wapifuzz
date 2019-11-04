@@ -18,7 +18,7 @@ def report_progress(session, junit_logger):
             except:
                 pass
             finally:
-                os._exit(1)
+                os._exit(2)
 
         if is_fuzzing_still_in_progress(session):
             plan_another_report(session, junit_logger, ConfigurationManager.get_reporting_interval())

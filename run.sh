@@ -77,7 +77,12 @@ ${PYTHON3_BIN} -m virtualenv env
 echo "Started fuzzing"
 . ./env/bin/activate ; \
 pip install --upgrade pip ; pip install git+https://github.com/jtpereyda/boofuzz.git ; pip install junit-xml ; \
-python fuzzer/src/wapifuzz.py ${WAPIFUZZ_CONFIG} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${CUSTOM_PAYLOADS_FILE} > ${FUZZER_LOG} || { echo 'Fuzzing failed. Trying to generate HTML result of procceeded test cases.' ; } ; deactivate
+python fuzzer/src/wapifuzz.py ${WAPIFUZZ_CONFIG} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${CUSTOM_PAYLOADS_FILE} > ${FUZZER_LOG}
+FUZZER_ERROR_CODE=$?
+if [ "$FUZZER_ERROR_CODE" -eq "2" ]; then
+   echo "Fuzzing failed. Trying to generate HTML result of procceeded test cases.";
+fi
+deactivate
 echo "Fuzzing finished"
 
 echo "Starting generating HTML test report"
@@ -91,3 +96,8 @@ else
     exit 1
 fi
 echo "Ending generating HTML test report"
+
+if [ "$FUZZER_ERROR_CODE" -eq "1" ]; then
+   echo "There were some failures! Returning non-zero return value.";
+   exit -1;
+fi

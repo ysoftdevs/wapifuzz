@@ -36,7 +36,12 @@ def main():
 
         fuzzer = Fuzzer(endpoints, text_logger, junit_logger, protocol)
         fuzzer.fuzz()
+        return fuzzer.was_there_any_failure()
 
 
 if __name__ == '__main__':
-    main()
+    was_there_any_failure: bool = main()
+    if was_there_any_failure:
+        exit(1)
+    else:
+        exit(0)

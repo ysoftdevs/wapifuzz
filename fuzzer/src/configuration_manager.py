@@ -65,12 +65,12 @@ class ConfigurationManager:
 
         if reporting_interval <= 0 or reporting_interval < receive_timeout:
             print("Wrong reporting interval. Should be smaller than receive_timeout.")
-            sys.exit(-1)
+            sys.exit(2)
 
         if "target" not in ConfigurationManager.config:
             print("Missing configuration of target.")
-            sys.exit(-1)
+            sys.exit(2)
 
         if http_fuzzing is None:
             print("Missing flag for enabling / disabling HTTP fuzzing.")
-            sys.exit(-1)
+            sys.exit(2)
