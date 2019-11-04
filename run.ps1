@@ -66,10 +66,10 @@ pip install --upgrade pip
 Write-Host "Installing specific dependencies"
 pip install git+https://github.com/jtpereyda/boofuzz.git
 pip install junit-xml
-
 Write-Host "Starting fuzz testing"
 python ./fuzzer/src/wapifuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads} > $FUZZER_LOG
-if(-Not ($?))
+$FUZZER_ERROR_CODE=$LASTEXITCODE
+if ($FUZZER_ERROR_CODE -eq 2)
 {
     Write-Host "Fuzzing failed. HTML report will not be produced."
     exit 1
@@ -112,3 +112,9 @@ else
     exit 1
 }
 Write-Host "--- Ending generating HTML test report ---"
+
+if ($FUZZER_ERROR_CODE -eq 1)
+{
+    Write-Host "There were some failures! Returning non-zero return value."
+    exit 1
+}

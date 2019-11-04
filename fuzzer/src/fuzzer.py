@@ -85,3 +85,6 @@ class Fuzzer:
     def fuzz(self):
         report_progress(self._session, self._junit_logger)
         self._session.fuzz()
+
+    def was_there_any_failure(self):
+        return self._junit_logger.was_there_any_failure

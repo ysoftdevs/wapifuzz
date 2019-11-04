@@ -31,6 +31,8 @@ class JUnitLogger(ifuzz_logger_backend.IFuzzLoggerBackend):
         self._default_value = None
         self._mutant_value = None
 
+        self.was_there_any_failure: bool = False
+
     def open_test_step(self, description):
         skipped_count = 0
         for skipped_test_case_message_regex in self.SKIPPED_TEST_CASE_MESSAGES_REGEX:
@@ -48,6 +50,7 @@ class JUnitLogger(ifuzz_logger_backend.IFuzzLoggerBackend):
 
     def log_error(self, description):
         self._error = description
+        self.was_there_any_failure = True
 
     def log_recv(self, data):
         self._received_bytes = helpers.hex_str(data)
@@ -71,6 +74,7 @@ class JUnitLogger(ifuzz_logger_backend.IFuzzLoggerBackend):
 
     def log_fail(self, description=""):
         self._failure = description
+        self.was_there_any_failure = True
 
     def log_pass(self, description=""):
         pass
