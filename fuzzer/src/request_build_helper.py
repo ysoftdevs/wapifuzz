@@ -58,16 +58,18 @@ class RequestBuildHelper(object):
 
     @staticmethod
     def _generate_additional_query_parameters(uri_parameters, already_used_parameters, id_generator, fuzzable):
-        are_non_required_attributes_in_requests = ConfigurationManager.are_non_required_attributes_in_requests()
         for uri_parameter in uri_parameters:
-            parameter_name = uri_parameter["Name"]
-            if parameter_name not in already_used_parameters and uri_parameter["Location"] == "Query":
-                if uri_parameter["Required"] is False and are_non_required_attributes_in_requests is False:
-                    break
-                prefix = "?" if "?" not in s_render().decode('ascii', 'ignore') else "&"
-                name = "URI attribute, default value: " + parameter_name + ", id: " + next(id_generator)
-                s_http_string(prefix + parameter_name + "=", fuzzable=False, encoding=EncodingTypes.ascii, name=name)
-                RequestBuildHelper._append_parameter(parameter_name, id_generator, uri_parameters, fuzzable)
+            if uri_parameter["Name"] not in already_used_parameters and uri_parameter["Location"] == "Query":
+                RequestBuildHelper._generate_single_query_additional_parameter(id_generator, uri_parameters, fuzzable, uri_parameter["Name"], uri_parameter["Required"])
+
+    @staticmethod
+    def _generate_single_query_additional_parameter(id_generator, uri_parameters, fuzzable, parameter_name, required):
+        are_non_required_attributes_in_requests = ConfigurationManager.are_non_required_attributes_in_requests()
+        if required or are_non_required_attributes_in_requests:
+            prefix = "?" if "?" not in s_render().decode('ascii', 'ignore') else "&"
+            name = "URI attribute, default value: " + parameter_name + ", id: " + next(id_generator)
+            s_http_string(prefix + parameter_name + "=", fuzzable=False, encoding=EncodingTypes.ascii, name=name)
+            RequestBuildHelper._append_parameter(parameter_name, id_generator, uri_parameters, fuzzable)
 
     @staticmethod
     def generate_uri(uri, uri_parameters, fuzzable=False):
