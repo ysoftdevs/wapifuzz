@@ -12,6 +12,7 @@
     "skipping_endpoints_keywords": ["logout", "auth"],
     "receive_timeout": 2,
     "startup_command": ["python", "C:\\server\\httpd.py"],
+    "are_non_required_attributes_in_requests": true,
     "target": {
         "hostname": "target_hostname",
         "port": 3000,
