@@ -68,6 +68,20 @@ class RequestBuilderHelperTests(unittest.TestCase):
         uri = s_render().decode('utf8', 'ignore')
         self.assertEqual('/api/endpoint?id=1&attr=2', uri)
 
+    def test_generate_uri_single_non_required_query_parameter_is_not_in_uri(self):
+        ConfigurationManager.config = {
+            "are_non_required_attributes_in_requests": False
+        }
+
+        uri_parameters = [
+            {'Name': 'id', 'Required': False, 'ExampleValue': '1', 'Type': 'string', 'Format': None, 'Location': 'Query'},
+        ]
+
+        RequestBuildHelper.generate_uri('/api/endpoint', uri_parameters)
+
+        uri = s_render().decode('utf8', 'ignore')
+        self.assertEqual('/api/endpoint', uri)
+
     def test_generate_uri_combined_parameters(self):
         ConfigurationManager.config = {
             "fixed_url_attributes": {

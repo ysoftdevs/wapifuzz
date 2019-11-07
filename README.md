@@ -47,6 +47,7 @@ In config file you are able to specify following options:
 - **http_fuzzing** -> boolean value for enabling / disabling fuzzing of HTTP protocol
 - **skipping_endpoints_keywords** [list of string keywords] -> endpoints containing any keyword in it from this list will be skipped (can be used for skipping auth/logout endpoints)
 - **startup_command** -> startup command for your tested process / service, see more details in `procmon/README.md`
+- **are_non_required_attributes_in_requests** -> boolean value, set to true, if you want attributes, that are specified as non-required, be part of URI part of request
 - **payloads_to_json_primitives_mapping** -> mapping of payloads folders to JSON primitives (see `config_example.json` for an example)
   - **boolean** -> array of folder names with payloads which will be used for JSON boolean primitive fuzzing
   - **number** -> array of folder names with payloads which will be used for JSON number primitive fuzzing

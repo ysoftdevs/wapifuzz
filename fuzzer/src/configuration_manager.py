@@ -39,6 +39,10 @@ class ConfigurationManager:
         return ConfigurationManager.config["payloads_to_json_primitives_mapping"] if "payloads_to_json_primitives_mapping" in ConfigurationManager.config else None
 
     @staticmethod
+    def are_non_required_attributes_in_requests():
+        return ConfigurationManager.config["are_non_required_attributes_in_requests"] if "are_non_required_attributes_in_requests" in ConfigurationManager.config else True
+
+    @staticmethod
     def get_receive_timeout():
         return ConfigurationManager.config["receive_timeout"]
 
