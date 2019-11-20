@@ -77,7 +77,7 @@ ${PYTHON3_BIN} -m virtualenv env
 echo "Started fuzzing"
 . ./env/bin/activate ; \
 pip install --upgrade pip ; pip install git+https://github.com/jtpereyda/boofuzz.git ; pip install junit-xml ; \
-python fuzzer/src/wapifuzz.py ${WAPIFUZZ_CONFIG} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${CUSTOM_PAYLOADS_FILE} > ${FUZZER_LOG}
+python fuzzer/wapifuzz.py ${WAPIFUZZ_CONFIG} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${CUSTOM_PAYLOADS_FILE} > ${FUZZER_LOG}
 FUZZER_ERROR_CODE=$?
 if [ "$FUZZER_ERROR_CODE" -eq "2" ]; then
    echo "Fuzzing failed. Trying to generate HTML result of procceeded test cases.";

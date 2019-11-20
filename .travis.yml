@@ -16,7 +16,7 @@ script:
   - find ~/build/ysoftdevs/wapifuzz/ -type f -exec dos2unix {} \;
   - find ~/build/ysoftdevs/wapifuzz/ -type f -name "*.sh" -exec chmod u+x {} \;
   - cd ~/build/ysoftdevs/wapifuzz/parser/ && dotnet restore && dotnet test
-  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/src/ && python3 -m unittest unit_tests.fuzzing_json_decoder_tests
-  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/src/ && python3 -m unittest unit_tests.json_schema_parser_tests
-  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/src/ && python3 -m unittest unit_tests.request_build_helper_tests
+  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/ && python3 -m unittest unit_tests.fuzzing_json_decoder_tests
+  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/ && python3 -m unittest unit_tests.json_schema_parser_tests
+  - cd ~/build/ysoftdevs/wapifuzz/fuzzer/ && python3 -m unittest unit_tests.request_build_helper_tests
   - cd ~/build/ysoftdevs/wapifuzz/tests/ && chmod +x run_tests.sh && travis_wait ./run_tests.sh
