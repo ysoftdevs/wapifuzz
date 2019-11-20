@@ -3,16 +3,18 @@
 # WapiFuzz - fully autonomous web APIs fuzzer
 Fuzzing is popular testing technique for various error types detection. There are many fuzzing engines and fuzzers, which can help you with fuzzing itself. But there is currently no tool which can fully automate fuzzing just by providing API specification.
 
-And that is why WapiFuzz was created. We believe that web API documentation is all that fuzzer needs to do his job. WapiFuzz can be easily deployed to almost any continuous integration (CI) service. It is based on popular [Boofuzz](https://github.com/jtpereyda/boofuzz) fuzzer and provides rich test reports to JUnit XML format.
+And that is why WapiFuzz was created. We believe that web API documentation is all that fuzzer needs to do his job. WapiFuzz can be easily deployed to almost any continuous integration (CI) service. It is based on popular [Boofuzz](https://github.com/jtpereyda/boofuzz) fuzzer and provides test reports to JUnit XML format.
 
 ## What does the WapiFuzz test?
-Current version of WapiFuzz tests following parts of HTTP request to your API:
+WapiFuzz can find vulnerabilities in following parts of HTTP request:
 - HTTP header
-- URI attributes of all documented requests
-- JSON body primitive types of all documented HTTP body examples
+- Path and query attributes
+- JSON body primitive types
+
+All requests are automatically generated from provided OpenAPI documentation.
 
 ## What types of vulnerabilities does WapiFuzz testing?
-- Numeric strings (overflows, reserved words, ...)
+- Numeric strings (overflows, reserved words, etc.)
 - Command injection
 - SQL injection
 - Path traversal
@@ -25,10 +27,11 @@ You can automatically test your web API if it meets following criteria:
 - Documented in OpenAPI 2 or OpenAPI 3
 - Consumes and produces only `application/json` or `text/plain` content
 
-If you have your API documented in other documentation formats, you can try use some convertor.
+If you have your API documented in other documentation formats, you can try use some convertors.
 There are plenty convertors online. Some of theme are listed here: https://openapi.tools/.
 
 Consuming JSON data is not mandatory requirement. If your API does not consumes JSON, WapiFuzz will still tests HTTP header and URI attributes processing of your server.
+The fuzzing of HTTP body part will be limited due to unsupported content format.
 
 ## Dependencies
 - Python 3
@@ -37,25 +40,25 @@ Consuming JSON data is not mandatory requirement. If your API does not consumes 
 - PowerShell or Bash
 
 ## Usage
-The only thing you need to do is create config file. You can find template in root of repository in `config_example.json` file. You can just modify this file and then pass it's path to runner script.
+The only thing you need to do is create WapiFuzz config file. You can find template in root of repository in `config_example.json` file. You can just modify this file and then pass it's path to runner script.
 
 In config file you are able to specify following options:
-- **fixed_url_attributes** -> if you want to set some attributes to static values
+- **fixed_url_attributes** -> if you want to set some URL attributes to static values
 - **headers** -> headers which are sent by each request (useful for AUTH token insertion)
 - **receive_timeout** -> maximum amount of time waiting for response (in seconds)
 - **reporting_interval** -> progress reporting interval (in seconds)
-- **http_fuzzing** -> boolean value for enabling / disabling fuzzing of HTTP protocol
-- **skipping_endpoints_keywords** [list of string keywords] -> endpoints containing any keyword in it from this list will be skipped (can be used for skipping auth/logout endpoints)
-- **startup_command** -> startup command for your tested process / service, see more details in `procmon/README.md`
-- **are_non_required_attributes_in_requests** -> boolean value, set to true, if you want attributes, that are specified as non-required, be part of URI part of request
-- **payloads_to_json_primitives_mapping** -> mapping of payloads folders to JSON primitives (see `config_example.json` for an example)
-  - **boolean** -> array of folder names with payloads which will be used for JSON boolean primitive fuzzing
-  - **number** -> array of folder names with payloads which will be used for JSON number primitive fuzzing
-  - **string** -> array of folder names with payloads which will be used for JSON string primitive fuzzing
-- **target** -> dictionary with following fields:
+- **http_fuzzing** -> boolean value for enabling / disabling fuzzing of bare HTTP protocol
+- **skipping_endpoints_keywords** [list of keywords] -> endpoints containing any keyword in it from this list will be skipped (can be used for skipping auth/logout endpoints)
+- **startup_command** (use only if you want to use process monitor) -> startup command for your tested process / service, see more details in `procmon/README.md`
+- **are_non_required_attributes_in_requests** -> boolean value, set to true, if you want attributes, that are specified as non-required to be part of URL part of request
+- **payloads_to_json_primitives_mapping** -> mapping of payloads folders to JSON primitives
+  - **boolean** -> array of folder names with payloads which will be used for JSON boolean fuzzing
+  - **number** -> array of folder names with payloads which will be used for JSON number fuzzing
+  - **string** -> array of folder names with payloads which will be used for JSON string fuzzing
+- **target** -> information about tested application
   - **hostname** -> victim hostname or IP address
   - **port** -> victim port
-  - **ssl** -> boolean value, set to `true` if you want use SSL tcp connection, otherwise `false`
+  - **ssl** -> boolean value, set to `true` if you want use SSL tcp connections, otherwise `false`
 
 Great, WapiFuzz is now ready for fuzzing! Run it by following commands.
 ### Windows
@@ -69,12 +72,13 @@ You just need to run the container with following arguments:
 
 `docker run -p {host_port}:{container_port} -v $(pwd):/usr/local/fuzzer/mnt/ starek4/wapifuzz:latest config.json sqta.yaml [custom_payloads.txt]`
 
-where files `config.json`, `sqta.yaml` and `custom_payloads` needs to be stored in the working directory.
+where files `config.json`, `sqta.yaml` and `custom_payloads.txt` needs to be stored in the working directory.
 With parameter `-p` you also need to bind port number, which is used for communication with your web API, to the container.
 So for example, if your API listen on the port 80, you can simply do `-p 80:80`.
 
 #### Custom payloads file
-As you can see in run script parameters, you may even specify your own payloads! Just create text file with your own testing strings (one on each line) and pass path to this file via run script parameters!
+As you can see in run script parameters, you may even specify your own payloads! Just create text file with your strings (one on each line) and pass path to this file via run script parameters!
+They will be automatically added into every fuzzed part of request.
 
 
 ## Where I can find test reports?
@@ -91,6 +95,5 @@ The first is the JUnit file (`./reporter/results.junit.xml`), which contains ful
 ### HTML report
 WapiFuzz also generates nicely formatted HTML test report, stored at `./reporter/reports.html`.
 
-### Additional text logs
-WapiFuzz informs you about overall progress at standard output. If you want complete tests logs even
-for successfully finished test cases you can find it in log file (`./fuzzing.log`).
+### Full text log
+Detailed text log with all information what you need to understand what happened when fuzzing.
