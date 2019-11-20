@@ -40,7 +40,7 @@ class PayloadsLoader:
 
 def load_default_payloads(hostname: str):
     loader = PayloadsLoader(hostname)
-    base_path = './fuzzer/src/payloads/lists/'
+    base_path = './fuzzer/payloads/lists/'
     for root, directories, files in os.walk(base_path):
         for file in files:
             if file.endswith('.txt'):

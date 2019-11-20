@@ -67,7 +67,7 @@ Write-Host "Installing specific dependencies"
 pip install git+https://github.com/jtpereyda/boofuzz.git
 pip install junit-xml
 Write-Host "Starting fuzz testing"
-python ./fuzzer/src/wapifuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads} > $FUZZER_LOG
+python ./fuzzer/wapifuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads} > $FUZZER_LOG
 $FUZZER_ERROR_CODE=$LASTEXITCODE
 if ($FUZZER_ERROR_CODE -eq 2)
 {
