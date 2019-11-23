@@ -33,8 +33,8 @@ Consuming JSON data is not mandatory a requirement. If your API does not consume
 The fuzzing of the HTTP body part will be limited due to unsupported content format.
 
 ## Dependencies
-- Python 3
-- .NET Core runtime 2.1 and higher
+- Python 3 with pip
+- .NET Core 2.1
 - JRE or Docker
 - PowerShell or Bash
 
