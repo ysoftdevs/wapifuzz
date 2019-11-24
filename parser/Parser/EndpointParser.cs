@@ -34,13 +34,25 @@ namespace Parser
             string basePath = string.Empty;
             if (openApiDocument.Servers.Any())
             {
-                basePath = new Uri(openApiDocument.Servers.First().Url).AbsolutePath;
+                basePath = GetUriFromServer(openApiDocument.Servers.First())?.AbsolutePath;
             }
 
             if (basePath == "/")
                 basePath = string.Empty;
 
             return basePath;
+        }
+
+        static Uri GetUriFromServer(OpenApiServer server)
+        {
+            try
+            {
+                return new Uri(server.Url);
+            }
+            catch (UriFormatException)
+            {
+                return null;
+            }
         }
     }
 }
