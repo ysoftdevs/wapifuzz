@@ -7,6 +7,8 @@ from payloads.payloads_loader import PayloadsLoader, load_default_payloads
 from configuration_manager import ConfigurationManager
 from fuzzer import Fuzzer
 
+FUZZING_LOG_FILE = "fuzzing.log"
+
 
 def main():
     config_file_path = sys.argv[1]
@@ -27,16 +29,17 @@ def main():
     payloads_loader.load_payloads(custom_payloads_path, FuzzPayloads.CUSTOM_PAYLOADS_KEY)
 
     with open(junit_output, 'w', encoding='utf8') as junit_output_file_pointer:
-        text_logger = TextLogger()
-        junit_logger = JUnitLogger(junit_output_file_pointer, test_suite_name_delimiter=":", hostname=target["hostname"])
-        protocol = 'ssl' if target["ssl"] is True else 'tcp'
+        with open(FUZZING_LOG_FILE, "w", encoding='utf8') as full_log_file_pointer:
+            text_logger = TextLogger(full_log_file_pointer)
+            junit_logger = JUnitLogger(junit_output_file_pointer, test_suite_name_delimiter=":", hostname=target["hostname"])
+            protocol = 'ssl' if target["ssl"] is True else 'tcp'
 
-        with open(endpoints_description, 'r') as endpoints_description_file_pointer:
-            endpoints = json.loads(endpoints_description_file_pointer.read())
+            with open(endpoints_description, 'r') as endpoints_description_file_pointer:
+                endpoints = json.loads(endpoints_description_file_pointer.read())
 
-        fuzzer = Fuzzer(endpoints, text_logger, junit_logger, protocol)
-        fuzzer.fuzz()
-        return fuzzer.was_there_any_failure()
+            fuzzer = Fuzzer(endpoints, text_logger, junit_logger, protocol)
+            fuzzer.fuzz()
+            return fuzzer.was_there_any_failure()
 
 
 if __name__ == '__main__':

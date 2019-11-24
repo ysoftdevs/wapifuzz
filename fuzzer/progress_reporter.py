@@ -24,7 +24,7 @@ def report_progress(session, junit_logger):
             plan_another_report(session, junit_logger, ConfigurationManager.get_reporting_interval())
 
         message = create_report_message(session)
-        print(message, file=sys.stderr)
+        print(message)
     else:
         plan_another_report(session, junit_logger, DID_FUZZING_STARTED_CHECKS_TIME_INTERVAL_IN_SECONDS)
 

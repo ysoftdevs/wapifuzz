@@ -3,6 +3,10 @@ from fake_socket import get_response_object
 
 
 class TextLogger(FuzzLoggerText):
+    def __init__(self, full_log_file_pointer):
+        super().__init__()
+        self._log_file = full_log_file_pointer
+
     def open_test_step(self, description):
         self._print_log_msg(msg=description, msg_type='step')
 
@@ -37,10 +41,14 @@ class TextLogger(FuzzLoggerText):
         self._print_log_msg(msg=description, msg_type='pass')
 
     def close_test_case(self):
-        print()
+        print(file=self._log_file)
 
     def close_test(self):
         pass
 
     def _print_log_msg(self, msg_type, msg=None, data=None):
-        print(helpers.format_log_msg(msg_type=msg_type, description=msg, data=data, indent_size=self.INDENT_SIZE))
+        print(
+            helpers.format_log_msg(
+                msg_type=msg_type, description=msg, data=data, indent_size=self.INDENT_SIZE, format_type="html"
+            ), file=self._log_file
+        )
