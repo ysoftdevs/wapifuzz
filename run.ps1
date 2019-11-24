@@ -32,7 +32,6 @@ $DOCKER='docker'
 # Define paths inside directory
 $PARSER_FOLDER="./parser/OpenApiParserCLI/"
 $API_REQUESTS_JSON="./parser/api.json"
-$FUZZER_LOG="fuzzing.log"
 $JUNIT_TEST_REPORT="./reporter/reports.junit.xml"
 $HTML_TEST_REPORT="./reporter/reports.html"
 $XUNIT2HTML_XSL="./reporter/xunit_to_html.xsl"
@@ -67,7 +66,7 @@ Write-Host "Installing specific dependencies"
 pip install git+https://github.com/jtpereyda/boofuzz.git
 pip install junit-xml
 Write-Host "Starting fuzz testing"
-python ./fuzzer/wapifuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads} > $FUZZER_LOG
+python ./fuzzer/wapifuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads}
 $FUZZER_ERROR_CODE=$LASTEXITCODE
 if ($FUZZER_ERROR_CODE -eq 2)
 {
