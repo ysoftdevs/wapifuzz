@@ -76,7 +76,7 @@ ${PIP3_BIN} install virtualenv
 ${PYTHON3_BIN} -m virtualenv env
 echo "Started fuzzing"
 . ./env/bin/activate ; \
-pip install --upgrade pip ; pip install git+https://github.com/jtpereyda/boofuzz.git ; pip install junit-xml ; \
+pip install --upgrade pip ; pip install boofuzz==0.1.6 ; pip install junit-xml ; \
 python fuzzer/wapifuzz.py ${WAPIFUZZ_CONFIG} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${CUSTOM_PAYLOADS_FILE}
 FUZZER_ERROR_CODE=$?
 if [ "$FUZZER_ERROR_CODE" -eq "2" ]; then

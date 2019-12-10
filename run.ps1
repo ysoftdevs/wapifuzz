@@ -63,7 +63,7 @@ Write-Host "Upgrade Python 3 pip (needed for crypto lib)"
 pip install --upgrade pip
 
 Write-Host "Installing specific dependencies"
-pip install git+https://github.com/jtpereyda/boofuzz.git
+pip install boofuzz==0.1.6
 pip install junit-xml
 Write-Host "Starting fuzz testing"
 python ./fuzzer/wapifuzz.py ${config} ${API_REQUESTS_JSON} ${JUNIT_TEST_REPORT} ${payloads}
